@@ -1,12 +1,11 @@
 <template>
   <div id="question-container">
-    <h3 class="question">{{question}}</h3>
-    <button
-      v-for="answer in mixAnswers"
-      :key="answer"
-      class="btn"
-      @click="answered(answer)"
-    >{{answer}}</button>
+    <h3 class="question">
+      <span v-html="question"></span>
+    </h3>
+    <button v-for="answer in mixAnswers" :key="answer" class="btn" @click="answered(answer)">
+      <span v-html="answer"></span>
+    </button>
   </div>
 </template>
 
