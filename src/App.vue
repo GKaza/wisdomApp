@@ -14,7 +14,7 @@
           <option value="hard">Hard</option>
         </select>
       </div>
-      <input type="submit" class="btn" />
+      <input type="submit" value="Start Game" class="btn" />
       <p v-if="this.show.error" class="error-message">Please choose your name and difficulty.</p>
     </form>
     <div v-if="this.show.question">
@@ -104,11 +104,15 @@ export default {
               .then(response => response.json())
               .then(data => data.results);
         }
+        // for (let index = 0; index < this.questions.length; index++) {
+        //   this.questions[index] = this.fixText(this.questions[index]);
+        // }
         this.show.form = false;
         this.show.question = true;
       } else {
         this.show.error = true;
       }
+      // console.log(this.questions);
     },
     questionOrder(index) {
       return index === this.counter;
@@ -131,6 +135,38 @@ export default {
         this.show.results = true;
       }
     },
+    // fixText(item) {
+    //   let array = [
+    //     [/&#039;/gi, "'"],
+    //     [/&quot;/gi, '"'],
+    //     [/&amp;/gi, "&"]
+    //   ];
+    //   let newItem = {
+    //     question: null,
+    //     correct_answer: null,
+    //     incorrect_answers: []
+    //   };
+    //   array.forEach(element => {
+    //     newItem.question = item.question.replace(element[0], element[1]);
+    //     newItem.correct_answer = item.correct_answer.replace(
+    //       element[0],
+    //       element[1]
+    //     );
+    //     newItem.incorrect_answers[0] = item.incorrect_answers[0].replace(
+    //       element[0],
+    //       element[1]
+    //     );
+    //     newItem.incorrect_answers[1] = item.incorrect_answers[1].replace(
+    //       element[0],
+    //       element[1]
+    //     );
+    //     newItem.incorrect_answers[2] = item.incorrect_answers[2].replace(
+    //       element[0],
+    //       element[1]
+    //     );
+    //   });
+    //   return newItem;
+    // },
     deleteHighscores() {
       localStorage.removeItem("highscores");
       this.reload();
