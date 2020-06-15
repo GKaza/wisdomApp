@@ -29,7 +29,21 @@
         @answered="answered($event)"
       />
     </div>
-    <div v-if="this.show.results" class="results"></div>
+    <div v-if="this.show.results">
+      <h1 class="results">Game Over!</h1>
+      <h2 class="results">Thank you for playing {{player.name}}.</h2>
+      <h2 class="results">You answered {{player.score}} out of 10 correctly!</h2>
+      <button class="btn results" @click="seeHighscores">See highscores</button>
+    </div>
+    <div v-if="this.show.highscores">
+      <h2>{{player.difficulty}}</h2>
+      <ol>
+        <li
+          v-for="(item,index) in highscores[this.player.difficulty]"
+          :key="index"
+        >{{item.name}} - {{item.score}}</li>
+      </ol>
+    </div>
   </div>
 </template>
 
@@ -46,15 +60,31 @@ export default {
       counter: 0,
       show: {
         form: true,
-        question: true,
+        question: false,
         error: false,
         results: false,
-        highscore: false
+        highscores: false
       },
       player: {
         name: null,
         difficulty: null,
         score: 0
+      },
+      highscores: {
+        easy: [
+          {
+            name: "john",
+            difficulty: "easy",
+            score: 5
+          },
+          {
+            name: "joan",
+            difficulty: "easy",
+            score: 6
+          }
+        ],
+        medium: [],
+        hard: []
       },
       questions: null
     };
@@ -98,6 +128,14 @@ export default {
       if (ans) {
         this.player.score++;
       }
+      if (this.counter === 10) {
+        this.show.question = false;
+        this.show.results = true;
+      }
+    },
+    seeHighscores() {
+      this.show.results = false;
+      this.show.highscores = true;
     }
   },
   computed: {}
