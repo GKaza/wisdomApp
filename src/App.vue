@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1 id="header">Wisdom Trivia Game</h1>
+    <h1 class="header">Wisdom Trivia Game</h1>
     <form @submit.prevent="formSubmit" v-if="this.show.form" class="form-container">
       <div class="form-item">
         <label for="name">Player Name:</label>
@@ -36,13 +36,18 @@
       <button class="btn results" @click="seeHighscores">See highscores</button>
     </div>
     <div v-if="this.show.highscores">
-      <h2>{{player.difficulty}}</h2>
-      <ol>
+      <h2 class="header">{{player.difficulty}}</h2>
+      <ol class="scores-container">
         <li
           v-for="(item,index) in highscores[this.player.difficulty]"
           :key="index"
+          class="scores"
         >{{item.name}} - {{item.score}}</li>
       </ol>
+      <button class="delete" @click="deleteHighscores">Delete all highscores</button>
+      <div>
+        <button class="btn" @click="reload">Play Again!</button>
+      </div>
     </div>
   </div>
 </template>
@@ -70,22 +75,7 @@ export default {
         difficulty: null,
         score: 0
       },
-      highscores: {
-        easy: [
-          {
-            name: "john",
-            difficulty: "easy",
-            score: 5
-          },
-          {
-            name: "joan",
-            difficulty: "easy",
-            score: 6
-          }
-        ],
-        medium: [],
-        hard: []
-      },
+      highscores: JSON.parse(localStorage.getItem("highscores")),
       questions: null
     };
   },
@@ -123,22 +113,43 @@ export default {
     questionOrder(index) {
       return index === this.counter;
     },
+    reload() {
+      window.location.reload();
+    },
     answered(ans) {
       this.counter++;
       if (ans) {
         this.player.score++;
       }
       if (this.counter === 10) {
+        this.highscores[this.player.difficulty].push(this.player);
+        this.highscores[this.player.difficulty].sort(function(a, b) {
+          return b.score - a.score;
+        });
+        localStorage.setItem("highscores", JSON.stringify(this.highscores));
         this.show.question = false;
         this.show.results = true;
       }
+    },
+    deleteHighscores() {
+      localStorage.removeItem("highscores");
+      this.reload();
     },
     seeHighscores() {
       this.show.results = false;
       this.show.highscores = true;
     }
   },
-  computed: {}
+  computed: {},
+  created: function() {
+    if (!this.highscores) {
+      this.highscores = {
+        easy: [],
+        medium: [],
+        hard: []
+      };
+    }
+  }
 };
 </script>
 
@@ -162,7 +173,7 @@ export default {
   background-size: cover;
 }
 
-#header {
+.header {
   padding: 40px;
 }
 
@@ -183,6 +194,30 @@ export default {
 .btn:hover {
   color: #2c3e50;
   background-color: #ffe6f5;
+}
+
+.delete {
+  color: #2c3e50;
+  background-color: #ffe6f5;
+  cursor: pointer;
+  border-radius: 30px;
+  border: 0px;
+  margin: 20px;
+}
+
+.delete:hover {
+  color: #ff0000;
+  background-color: #2c3e50;
+}
+
+.scores-container {
+  margin: auto;
+  min-width: 200px;
+  width: fit-content;
+}
+
+.scores {
+  padding: 8px;
 }
 
 .error-message {
