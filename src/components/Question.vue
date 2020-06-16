@@ -3,9 +3,16 @@
     <h3 class="question">
       <span v-html="question"></span>
     </h3>
-    <button v-for="answer in mixAnswers" :key="answer" class="btn" @click="answered(answer)">
-      <span v-html="answer"></span>
-    </button>
+    <div class="answers-container">
+      <button
+        v-for="answer in mixAnswers"
+        :key="answer"
+        class="btn answer"
+        @click="answered(answer)"
+      >
+        <span v-html="answer"></span>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -32,4 +39,14 @@ export default {
 </script>
 
 <style scoped>
+.answers-container {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+.answer {
+  min-width: fit-content;
+  width: 300px;
+  margin: 10px auto;
+}
 </style>

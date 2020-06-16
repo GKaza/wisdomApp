@@ -1,22 +1,28 @@
 <template>
   <div id="app">
-    <h1 class="header">Wisdom Trivia Game</h1>
-    <form @submit.prevent="formSubmit" v-if="this.show.form" class="form-container">
-      <div class="form-item">
-        <label for="name">Player Name:</label>
-        <input id="name" v-model="player.name" />
-      </div>
-      <div class="form-item">
-        <label for="difficulty">Difficulty:</label>
-        <select id="difficulty" v-model="player.difficulty">
-          <option value="easy">Easy</option>
-          <option value="medium">Medium</option>
-          <option value="hard">Hard</option>
-        </select>
-      </div>
-      <input type="submit" value="Start Game" class="btn" />
-      <p v-if="this.show.error" class="error-message">Please choose your name and difficulty.</p>
-    </form>
+    <h1 class="header">
+      <a @click="this.reload">Wisdom Trivia Game</a>
+    </h1>
+    <div v-if="this.show.form">
+      <form @submit.prevent="formSubmit" v-if="this.show.form" class="form-container">
+        <div class="form-item">
+          <label for="name">Player Name:</label>
+          <input id="name" v-model="player.name" />
+        </div>
+        <div class="form-item">
+          <label for="difficulty">Difficulty:</label>
+          <select id="difficulty" v-model="player.difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+        <input type="submit" value="Start Game" class="btn" />
+        <p v-if="this.show.error" class="error-message">Please choose your name and difficulty.</p>
+      </form>
+      <div class="loader"></div>
+    </div>
+
     <div v-if="this.show.question">
       <Question
         v-for="(question,index) in questions"
@@ -42,7 +48,7 @@
           v-for="(item,index) in highscores[this.player.difficulty]"
           :key="index"
           class="scores"
-        >{{item.name}} - {{item.score}}</li>
+        >{{item.name}} - {{item.score}}/10</li>
       </ol>
       <button class="delete" @click="deleteHighscores">Delete all highscores</button>
       <div>
@@ -154,31 +160,82 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Press Start 2P", cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin: 0px;
   height: 100%;
-  background: rgb(255, 201, 234);
-  background: linear-gradient(
-    302deg,
-    rgba(255, 201, 234, 1) 0%,
-    rgba(181, 242, 255, 1) 100%
-  );
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+}
+
+a {
+  cursor: pointer;
 }
 
 .header {
   padding: 40px;
 }
 
+.form-container {
+  min-width: fit-content;
+  width: 300px;
+  padding: 20px;
+  margin: 40px auto;
+  border: 2px solid #617b942c;
+  border-radius: 50px;
+}
+
 .form-item {
   padding: 20px;
+}
+
+.loader {
+  display: inline-block;
+  margin: 40px;
+  width: 90px;
+  height: 90px;
+  background-color: #b9ff57;
+  border-radius: 0;
+  animation-name: rotate;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  animation-direction: alternate;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+    border-radius: 0;
+  }
+  25% {
+    transform: rotate(45deg);
+    border-radius: 0;
+    border-top-left-radius: 50%;
+    background-color: #ff9b57;
+  }
+  50% {
+    transform: rotate(90deg);
+    border-radius: 0;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    background-color: #57cbff;
+  }
+  75% {
+    transform: rotate(135deg);
+    border-radius: 0;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    background-color: #d457ff;
+  }
+  100% {
+    transform: rotate(180deg);
+    border-radius: 50%;
+  }
 }
 
 .btn {
@@ -189,6 +246,7 @@ export default {
   border-radius: 30px;
   border: 0px;
   margin: 10px;
+  outline: 0px;
 }
 
 .btn:hover {
