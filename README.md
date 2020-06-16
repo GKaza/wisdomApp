@@ -1,24 +1,17 @@
-# wisdom-app
+# wisdomApp
 
-## Project setup
-```
-npm install
-```
+Basic functionality preview:
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+<a href="https://imgflip.com/gif/45bnuj"><img src="https://i.imgflip.com/45bnuj.gif"></a>
 
-### Compiles and minifies for production
-```
-npm run build
-```
+# A fun game application
 
-### Lints and fixes files
-```
-npm run lint
-```
+The player fills a form where he must choose his name and game difficulty and cannot proceed otherwise. Then based on the difficulty he picked, 10 random questions are fetched from an API and the game begins. Player picks 1 out of 4 possible answers until all questions are answered. He is then presented with his results where he can also continue to see where he stands in the highscore list.
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Important Notes
+
+- project was made using VueJS
+- Api used is [Open Trivia DB](https://opentdb.com/api_config.php)
+- localStorage is used to save the 3 highscore lists based on the difficulty picked
+- fonts and CSS styling used to mimic old-school arcade games
