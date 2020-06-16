@@ -39,6 +39,9 @@ export default {
 </script>
 
 <style scoped>
+.question {
+  line-height: 2rem;
+}
 .answers-container {
   padding: 30px;
   display: flex;

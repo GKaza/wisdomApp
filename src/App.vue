@@ -39,7 +39,7 @@
       <h1 class="results">Game Over!</h1>
       <h2 class="results">Thank you for playing {{player.name}}.</h2>
       <h2 class="results">You answered {{player.score}} out of 10 correctly!</h2>
-      <button class="btn results" @click="seeHighscores">See highscores</button>
+      <button class="btn" @click="seeHighscores">See highscores</button>
     </div>
     <div v-if="this.show.highscores">
       <h2 class="header">{{player.difficulty}}</h2>
@@ -171,6 +171,10 @@ export default {
   height: 100%;
 }
 
+.results {
+  line-height: 3rem;
+}
+
 a {
   cursor: pointer;
 }
@@ -195,9 +199,9 @@ a {
 .loader {
   display: inline-block;
   margin: 40px;
-  width: 90px;
-  height: 90px;
-  background-color: #b9ff57;
+  width: 80px;
+  height: 80px;
+  background-color: #86bbbd;
   border-radius: 0;
   animation-name: rotate;
   animation-duration: 3s;
@@ -215,14 +219,14 @@ a {
     transform: rotate(45deg);
     border-radius: 0;
     border-top-left-radius: 50%;
-    background-color: #ff9b57;
+    background-color: #76949f;
   }
   50% {
     transform: rotate(90deg);
     border-radius: 0;
     border-top-left-radius: 50%;
     border-top-right-radius: 50%;
-    background-color: #57cbff;
+    background-color: #6a6b83;
   }
   75% {
     transform: rotate(135deg);
@@ -230,7 +234,7 @@ a {
     border-top-left-radius: 50%;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
-    background-color: #d457ff;
+    background-color: #5f506b;
   }
   100% {
     transform: rotate(180deg);
