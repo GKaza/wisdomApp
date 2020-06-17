@@ -11,6 +11,7 @@ The player fills a form where he must choose his name and game difficulty and ca
 
 ## Important Notes
 
+- application can be checked [here](https://wisdomapp-5e760.web.app/)
 - project was made using VueJS
 - Api used is [Open Trivia DB](https://opentdb.com/api_config.php)
 - localStorage is used to save the 3 highscore lists based on the difficulty picked
