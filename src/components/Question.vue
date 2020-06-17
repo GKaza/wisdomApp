@@ -40,6 +40,7 @@ export default {
 
 <style scoped>
 .question {
+  padding: 10px;
   line-height: 2rem;
 }
 .answers-container {
